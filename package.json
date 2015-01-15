@@ -4,9 +4,9 @@
   "description": "The demo of the SPA based on the flux router",
   "main": "Scripts/app.js",
   "dependencies": {
-    "flux-router-component": "^0.4.x",
+    "flux-router-component": "^0.5.x",
     "fluxible-app": "^0.1.0",
-    "fluxible-plugin-routr": "^0.2.0",
+    "fluxible-plugin-routr": "^0.3.0",
     "react": "^0.12.0",
     "keymirror": "~0.1.0"
   },

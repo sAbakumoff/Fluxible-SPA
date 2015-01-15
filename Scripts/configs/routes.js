@@ -1,3 +1,5 @@
+var getNews = require('../actions/getNews');
+
 module.exports.routes = {
     home : {
         method : 'get',
@@ -7,7 +9,11 @@ module.exports.routes = {
     news: {
         method : 'get',
         path: '/news',
-        page : 'news'
+        page : 'news',
+        action : function(context, payload, done){
+            context.executeAction(getNews, payload.params, done);
+        }
+
     }
 };
 

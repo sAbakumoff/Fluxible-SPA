@@ -4,6 +4,7 @@ var RouterMixin = require('flux-router-component').RouterMixin;
 var Menu = require('./Menu.react');
 var Content = require('./Content.react');
 var ApplicationStore = require('../stores/ApplicationStore');
+var ProgressIndicator = require('./Progress.react');
 
 var SpaApp = React.createClass({
 	mixins : [RouterMixin, StoreMixin],
@@ -18,7 +19,9 @@ var SpaApp = React.createClass({
 		this.setState(state);
 	},
   	render: function() {
-		var content = React.createElement(Content, {currentPage : this.state.currentPage, context : this.props.context});
+		var content = this.state.isDataLoaded ?
+			React.createElement(ProgressIndicator, {}) :
+			React.createElement(Content, {currentPage : this.state.currentPage, context : this.props.context});
 		return (
 			<div id='wrapper'>
 				<Menu currentPageName={this.state.currentPageName} pages={this.state.pages} context={this.props.context} />

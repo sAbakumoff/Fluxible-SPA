@@ -13,6 +13,7 @@ app.plug(routrPlugin({
 }));
 
 app.registerStore(require('./stores/ApplicationStore'));
+app.registerStore(require('./stores/NewsStore'));
 
 var context = app.createContext();
 
@@ -34,7 +35,7 @@ if(window.location.hash){
 	path = window.location.hash.substring(1) || path;
 }
 context.getActionContext().executeAction(navigateAction, {
-	path: path
+	url: path
 }, function (err) {
 	if(err){
 		return console.log('unable to navigate to ' + path + ' cause : ' + err);
