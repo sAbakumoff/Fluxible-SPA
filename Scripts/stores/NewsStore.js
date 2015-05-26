@@ -1,5 +1,5 @@
 'use strict';
-var createStore = require('fluxible-app/utils/createStore');
+var createStore = require('fluxible/addons/createStore');
 
 var NewsStore = createStore({
     storeName: 'NewsStore',

@@ -1,35 +1,45 @@
 var React = require('react');
-var StoreMixin = require('fluxible-app').StoreMixin;
-var RouterMixin = require('flux-router-component').RouterMixin;
+
+var provideContext = require('fluxible/addons').provideContext;
+var connectToStores = require('fluxible/addons').connectToStores;
+var handleHistory = require('fluxible-router').handleHistory;
+var HistoryWithHash = require('fluxible-router/addons').HistoryWithHash;
+
 var Menu = require('./Menu.react');
 var Content = require('./Content.react');
 var ApplicationStore = require('../stores/ApplicationStore');
+var RouteStore = require('../stores/RouteStore');
 var ProgressIndicator = require('./Progress.react');
 
-var SpaApp = React.createClass({
-	mixins : [RouterMixin, StoreMixin],
-	statics: {
-		storeListeners: [ApplicationStore]
-	},
-	getInitialState : function() {
-		return this.getStore(ApplicationStore).getState();
-	},
-	onChange: function () {
-		var state = this.getStore(ApplicationStore).getState();
-		this.setState(state);
-	},
+var pages = require('../configs/routes').pages;
+
+var Application = React.createClass({
   	render: function() {
-		var content = this.state.isDataLoaded ?
-			React.createElement(ProgressIndicator, {}) :
-			React.createElement(Content, {currentPage : this.state.currentPage, context : this.props.context});
+		var currentRoute =  this.props.currentRoute;
+		if(currentRoute){
+			element = <span>{currentRoute.get('page')}</span>;
+		}
+		else{
+			element = <span>no route yet</span>;
+		}
 		return (
-			<div id='wrapper'>
-				<Menu currentPageName={this.state.currentPageName} pages={this.state.pages} context={this.props.context} />
-				{content}
-			</div>
+			<div>{element}</div>
 		);
   }
 
 });
 
-module.exports = SpaApp;
+var historyOptions = {
+	historyCreator: function historyCreator() {
+		return new HistoryWithHash({
+			useHashRoute: true
+		});
+	},
+	checkRouteOnPageLoad : true
+};
+
+Application = handleHistory(Application, historyOptions);
+
+Application = provideContext(Application);
+
+module.exports = Application;

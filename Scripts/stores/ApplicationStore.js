@@ -1,11 +1,11 @@
 'use strict';
-var createStore = require('fluxible-app/utils/createStore');
+var createStore = require('fluxible/addons/createStore');
 var constants = require('../constants/constants');
 
 var routesConfig = require('../configs/routes');
 
 var handlers = {};
-handlers[constants.CHANGE_ROUTE_SUCCESS] = 'handleNavigate';
+//handlers[constants.NAVIGATE_SUCCESS] = 'handleNavigate';
 handlers[constants.UPDATE_PAGE_TITLE] = 'updatePageTitle';
 handlers[constants.GET_DATA_START] = 'handleGetDataStart';
 handlers[constants.GET_DATA_END] = 'handleGetDataEnd';

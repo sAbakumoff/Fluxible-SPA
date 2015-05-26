@@ -1,6 +1,6 @@
 ﻿'use strict';
 var React = require('react');
-var NavLink = require('flux-router-component').NavLink;
+var NavLink = require('fluxible-router').NavLink;
 
 var NavBar = React.createClass({
 	render: function() {
